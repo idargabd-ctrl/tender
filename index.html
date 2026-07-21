@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitPulse — демо фитнес-трекера</title>
+    <meta name="description" content="Небольшое демо фитнес-трекера с четырьмя экранами." />
+    <style>
+      :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; background: radial-gradient(circle at top left, rgba(45, 212, 191, .28), transparent 34rem), #020617; color: white; }
+      .app { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0; }
+      .topbar, .tabs, .card { border: 1px solid rgba(255,255,255,.12); background: rgba(15, 23, 42, .82); box-shadow: 0 24px 80px rgba(0,0,0,.35); backdrop-filter: blur(18px); }
+      .topbar { display: flex; justify-content: space-between; gap: 16px; align-items: center; border-radius: 28px; padding: 20px; }
+      .eyebrow { margin: 0 0 6px; color: #6ee7b7; font-weight: 700; }
+      h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 0; font-size: clamp(28px, 4vw, 42px); } h2 { font-size: clamp(28px, 4vw, 44px); }
+      .readiness { border-radius: 20px; background: #34d399; color: #020617; padding: 14px 18px; font-weight: 900; white-space: nowrap; }
+      .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 22px 0; padding: 8px; border-radius: 26px; }
+      .tab { border: 0; border-radius: 18px; background: transparent; color: #cbd5e1; cursor: pointer; font: inherit; font-weight: 800; padding: 14px 10px; transition: .2s ease; }
+      .tab:hover { background: rgba(255,255,255,.08); color: #fff; } .tab.active { background: #34d399; color: #020617; }
+      .screen { display: none; animation: enter .22s ease; } .screen.active { display: block; } @keyframes enter { from { opacity: 0; transform: translateY(8px); } }
+      .grid { display: grid; gap: 16px; } .home { grid-template-columns: 1.4fr .8fr; } .stats { grid-template-columns: repeat(3, 1fr); } .workout { grid-template-columns: 1.25fr .75fr; } .profile { grid-template-columns: .8fr 1.2fr; }
+      .hero { border-radius: 32px; background: linear-gradient(135deg, #34d399, #22d3ee); color: #020617; padding: clamp(26px, 5vw, 48px); min-height: 330px; }
+      .card { border-radius: 28px; padding: 24px; } .stat-value { font-size: clamp(30px, 5vw, 48px); font-weight: 950; letter-spacing: -0.04em; margin: 10px 0 0; } .muted { color: #94a3b8; } .metric-row { grid-template-columns: repeat(4, 1fr); }
+      .plan-item { border-radius: 20px; background: rgba(2, 6, 23, .48); padding: 16px; margin-top: 12px; }
+      .bars { display: flex; align-items: end; gap: 12px; height: 270px; padding-top: 28px; } .bar-wrap { flex: 1; text-align: center; color: #94a3b8; font-size: 12px; } .bar { min-height: 28px; border-radius: 18px 18px 6px 6px; background: linear-gradient(180deg, #67e8f9, #10b981); margin-bottom: 8px; }
+      .avatar { width: 104px; height: 104px; border-radius: 999px; display: grid; place-items: center; margin: 0 auto 18px; background: #34d399; color: #020617; font-size: 34px; font-weight: 950; }
+      .chips { display: flex; flex-wrap: wrap; gap: 10px; } .chip { border-radius: 999px; background: rgba(52, 211, 153, .18); color: #a7f3d0; padding: 10px 14px; font-weight: 800; }
+      @media (max-width: 820px) { .topbar, .home, .workout, .profile { grid-template-columns: 1fr; } .topbar { display: grid; } .stats, .metric-row { grid-template-columns: repeat(2, 1fr); } .tabs { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 520px) { .stats, .metric-row { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div><p class="eyebrow">FitPulse · демо трекера</p><h1>Привет, Анна Смирнова</h1></div>
+        <div class="readiness">Готовность 82%</div><a class="readiness" href="/showcase/" style="text-decoration:none">Showcase</a>
+      </header>
+      <nav class="tabs" aria-label="Экраны приложения">
+        <button class="tab active" data-target="home">🏠 Главная</button>
+        <button class="tab" data-target="workout">🏋️ Тренировка</button>
+        <button class="tab" data-target="progress">📊 Прогресс</button>
+        <button class="tab" data-target="profile">👤 Профиль</button>
+      </nav>
+      <section id="home" class="screen active">
+        <div class="grid home">
+          <article class="hero"><p><strong>21 июля 2026</strong></p><h2>Сегодня отличный день для цели: подготовка к полумарафону</h2><p>Запланирована тренировка «Интервальный бег» на 46 минут.</p></article>
+          <div class="grid"><article class="card"><p class="muted">Шаги</p><p class="stat-value">12 480</p></article><article class="card"><p class="muted">Активные минуты</p><p class="stat-value">86</p></article></div>
+          <article class="card"><p class="muted">Калории</p><p class="stat-value">2 180</p></article><article class="card"><p class="muted">Сон</p><p class="stat-value">7 ч 42 мин</p></article><article class="card"><p class="muted">Вода</p><p class="stat-value">1,9 л</p></article>
+        </div>
+      </section>
+      <section id="workout" class="screen">
+        <div class="grid workout"><article class="card"><p class="eyebrow">Текущая тренировка</p><h2>Интервальный бег</h2><div class="grid metric-row"><div><p class="muted">Время</p><p class="stat-value">46 мин</p></div><div><p class="muted">Дистанция</p><p class="stat-value">7,2 км</p></div><div><p class="muted">Темп</p><p class="stat-value">6:23</p></div><div><p class="muted">Пульс</p><p class="stat-value">148</p></div></div></article><aside class="card"><h3>План занятия</h3><div class="plan-item"><strong>✓ Разминка</strong><br><span class="muted">10 мин · легкий бег</span></div><div class="plan-item"><strong>✓ Интервалы</strong><br><span class="muted">6 × 600 м · темп 5:45</span></div><div class="plan-item"><strong>○ Заминка</strong><br><span class="muted">8 мин · восстановление</span></div></aside></div>
+      </section>
+      <section id="progress" class="screen">
+        <div class="grid stats"><article class="card"><p class="muted">Км за неделю</p><p class="stat-value">31,6</p></article><article class="card"><p class="muted">Тренировок</p><p class="stat-value">5</p></article><article class="card"><p class="muted">Серия дней</p><p class="stat-value">18</p></article></div>
+        <article class="card" style="margin-top:16px"><h2>Нагрузка за 7 дней</h2><div class="bars"><div class="bar-wrap"><div class="bar" style="height:42%"></div>Д1</div><div class="bar-wrap"><div class="bar" style="height:58%"></div>Д2</div><div class="bar-wrap"><div class="bar" style="height:51%"></div>Д3</div><div class="bar-wrap"><div class="bar" style="height:76%"></div>Д4</div><div class="bar-wrap"><div class="bar" style="height:68%"></div>Д5</div><div class="bar-wrap"><div class="bar" style="height:84%"></div>Д6</div><div class="bar-wrap"><div class="bar" style="height:91%"></div>Д7</div></div></article>
+      </section>
+      <section id="profile" class="screen">
+        <div class="grid profile"><article class="card" style="text-align:center"><div class="avatar">АС</div><h2>Анна Смирнова</h2><p class="muted">32 года · Москва</p><p class="eyebrow">С нами с января 2025</p></article><div class="grid stats"><article class="card"><p class="muted">Рост</p><p class="stat-value">170 см</p></article><article class="card"><p class="muted">Вес</p><p class="stat-value">62,4 кг</p></article><article class="card"><p class="muted">VO₂ max</p><p class="stat-value">46</p></article><article class="card"><p class="muted">Пульс покоя</p><p class="stat-value">54</p></article><article class="card" style="grid-column:1/-1"><p class="muted">Любимые активности</p><div class="chips"><span class="chip">Бег</span><span class="chip">Силовые</span><span class="chip">Йога</span></div></article></div></div>
+      </section>
+    </div>
+    <script>
+      const tabs = document.querySelectorAll('.tab');
+      const screens = document.querySelectorAll('.screen');
+      tabs.forEach((tab) => tab.addEventListener('click', () => {
+        tabs.forEach((item) => item.classList.remove('active'));
+        screens.forEach((screen) => screen.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.target).classList.add('active');
+      }));
+    </script>
+  </body>
+</html>
